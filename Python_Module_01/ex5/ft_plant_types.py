@@ -5,13 +5,12 @@ class Plant:
         self._days_age = 0
         self.set_height(height)
         self.set_age(days_age)
-        self._growth_rate = 0.8
 
     def show(self) -> None:
         print(f"{self._name} : {self._height}cm, {self._days_age} days old")
 
-    def grow(self) -> None:
-        self._height = round(self._height + self._growth_rate, 1)
+    def grow(self, growth_rate: float = 2.1) -> None:
+        self._height = round(self._height + growth_rate, 1)
 
     def age(self) -> None:
         self._days_age += 1
@@ -79,7 +78,6 @@ class Vegetable(Plant):
         super().__init__(name, height, days_age)
         self.harvest_season = harvest_season.capitalize()
         self.nutritional_value = 0
-        self._growth_rate = 2.1
 
     def show(self) -> None:
         super().show()
@@ -89,9 +87,14 @@ class Vegetable(Plant):
     def age(self) -> None:
         super().age()
 
-    def grow(self) -> None:
-        super().grow()
+    def grow(self, growth_rate: float = 2.1) -> None:
+        super().grow(growth_rate)
         self.nutritional_value += 1
+
+    def grow_and_age(self, age_for: int) -> None:
+        for i in range(age_for):
+            self.grow()
+            self.age()
 
 
 if __name__ == "__main__":
@@ -115,7 +118,5 @@ if __name__ == "__main__":
     tomato = Vegetable("tomato", 5.0, 10, "april")
     tomato.show()
     print("[make tomato grow and age for 20 days]")
-    for i in range(1, 21):
-        tomato.age()
-        tomato.grow()
+    tomato.grow_and_age(20)
     tomato.show()

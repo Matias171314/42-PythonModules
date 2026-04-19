@@ -19,13 +19,13 @@ class Plant:
         print(f"{self._name} : {self._height}cm, {self._days_age} days old")
         self._analytics.show_calls += 1
 
-    def grow(self, days: int = 1) -> None:
-        self._height = round(self._height + (self._growth_rate * days), 1)
+    def grow(self, growth_rate: float = 8.0) -> None:
+        self._height = round(self._height + growth_rate, 1)
         self._analytics.grow_calls += 1
 
-    def age(self, days: int = 1) -> None:
-        self._days_age += days
-        self._analytics.age_calls_calls += 1
+    def age(self, age_rate: int = 1) -> None:
+        self._days_age += age_rate
+        self._analytics.age_calls += 1
 
     def get_height(self) -> float:
         return self._height
@@ -48,7 +48,7 @@ class Plant:
             self._days_age = new_age
 
     @staticmethod
-    def is_older_1y(days: int) -> bool:
+    def older_than_a_year(days: int) -> bool:
         return days > 365
 
     @classmethod
@@ -65,11 +65,11 @@ class Flower(Plant):
 
     def show(self) -> None:
         super().show()
-        print(f"Color: {self.color}")
+        print(f" Color: {self.color}")
         if self.is_blooming:
-            print(f"{self._name} is blooming beautifully!")
+            print(f" {self._name} is blooming beautifully!")
         else:
-            print(f"{self._name} has not bloomed yet")
+            print(f" {self._name} has not bloomed yet")
 
     def bloom(self) -> None:
         self.is_blooming = True
@@ -84,7 +84,7 @@ class Tree(Plant):
 
     def show(self) -> None:
         super().show()
-        print(f"Trunk diameter: {self.trunk_diameter}cm")
+        print(f" Trunk diameter: {self.trunk_diameter}cm")
 
     def produce_shade(self) -> None:
         self.shader = True
@@ -103,15 +103,20 @@ class Vegetable(Plant):
 
     def show(self) -> None:
         super().show()
-        print(f"Harvest season: {self.harvest_season}")
-        print(f"Nutritional value: {self.nutritional_value}")
+        print(f" Harvest season: {self.harvest_season}")
+        print(f" Nutritional value: {self.nutritional_value}")
 
     def age(self) -> None:
         super().age()
 
-    def grow(self) -> None:
-        super().grow()
+    def grow(self, growth_rate: float = 8.0) -> None:
+        super().grow(growth_rate)
         self.nutritional_value += 1
+
+    def grow_and_age(self, age_for: int) -> None:
+        for i in range(age_for):
+            self.grow()
+            self.age()
 
 
 class Seed(Flower):
@@ -122,11 +127,14 @@ class Seed(Flower):
 
     def show(self) -> None:
         super().show()
-        print(f"Seeds: {self.count_seed}")
+        print(f" Seeds: {self.count_seed}")
 
-    def bloom(self) -> None:
+    def grow(self, growth_rate: float = 8.0) -> None:
+        super().grow(growth_rate)
+
+    def bloom(self, number_of_seeds: int = 0) -> None:
         super().bloom()
-        self.count_seed = 42
+        self.count_seed += number_of_seeds
 
 
 def display_statistics(plant: Plant) -> None:
@@ -134,14 +142,14 @@ def display_statistics(plant: Plant) -> None:
     print(f"Stats: {stats.grow_calls} grow, {stats.age_calls} age, "
           f"{stats.show_calls} show")
     if isinstance(plant, Tree):
-        print(f"{stats.shade_calls} shade")
+        print(f" {stats.shade_calls} shade")
 
 
 if __name__ == "__main__":
     print("=== Garden statistics ===")
     print("=== Check year-old")
-    print(f"Is 30 days more than a year? -> {Plant.is_older_1y(30)}")
-    print(f"Is 400 days more than a year? -> {Plant.is_older_1y(400)}")
+    print(f"Is 30 days more than a year? -> {Plant.older_than_a_year(30)}")
+    print(f"Is 400 days more than a year? -> {Plant.older_than_a_year(400)}")
     print("")
 
     print("=== Flower")
@@ -172,9 +180,9 @@ if __name__ == "__main__":
     sunflower = Seed("sunflower", 80.0, 45, "yellow")
     sunflower.show()
     print("[make sunflower grow, age and bloom]")
-    sunflower.grow()
-    sunflower.age()
-    sunflower.bloom()
+    sunflower.grow(30)
+    sunflower.age(20)
+    sunflower.bloom(42)
     sunflower.show()
     print("[statistics for Sunflower]")
     display_statistics(sunflower)
