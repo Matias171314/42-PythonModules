@@ -1,13 +1,13 @@
 class Plant:
     def __init__(self, name: str, height: float, days_age: int) -> None:
-        self._name = name.capitalize()
+        self.name = name.capitalize()
         self._height = 0.0
         self._days_age = 0
         self.set_height(height)
         self.set_age(days_age)
 
     def show(self) -> None:
-        print(f"{self._name} : {self._height}cm, {self._days_age} days old")
+        print(f"{self.name} : {self._height}cm, {self._days_age} days old")
 
     def grow(self, growth_rate: float = 2.1) -> None:
         self._height = round(self._height + growth_rate, 1)
@@ -23,14 +23,14 @@ class Plant:
 
     def set_height(self, new_height: float) -> None:
         if new_height < 0:
-            print(f"{self._name}: Error, height can't be negative")
+            print(f"{self.name}: Error, height can't be negative")
             print("Height update rejected")
         else:
             self._height = new_height
 
     def set_age(self, new_age: int) -> None:
         if new_age < 0:
-            print(f"{self._name}: Error, age can't be negative")
+            print(f"{self.name}: Error, age can't be negative")
             print("Age update rejected")
         else:
             self._days_age = new_age
@@ -47,9 +47,9 @@ class Flower(Plant):
         super().show()
         print(f"Color: {self.color}")
         if self.is_blooming:
-            print(f"{self._name} is blooming beautifully!")
+            print(f"{self.name} is blooming beautifully!")
         else:
-            print(f"{self._name} has not bloomed yet")
+            print(f"{self.name} has not bloomed yet")
 
     def bloom(self) -> None:
         self.is_blooming = True
@@ -68,7 +68,7 @@ class Tree(Plant):
 
     def produce_shade(self) -> None:
         self.shader = True
-        print(f"Tree {self._name} now produce a shade of "
+        print(f"Tree {self.name} now produce a shade of "
               f"{self._height}cm long and {self.trunk_diameter}cm wide.")
 
 
