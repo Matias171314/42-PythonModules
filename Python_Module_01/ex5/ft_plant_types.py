@@ -86,6 +86,7 @@ class Vegetable(Plant):
 
     def age(self) -> None:
         super().age()
+        self.nutritional_value += 1
 
     def grow(self, growth_rate: float = 2.1) -> None:
         super().grow(growth_rate)
@@ -93,7 +94,7 @@ class Vegetable(Plant):
 
     def grow_and_age(self, age_for: int) -> None:
         for i in range(age_for):
-            self.grow()
+            super().grow()
             self.age()
 
 
