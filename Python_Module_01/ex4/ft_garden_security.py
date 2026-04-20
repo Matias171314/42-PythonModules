@@ -37,7 +37,7 @@ class Plant:
 
 
 if __name__ == "__main__":
-    rose = Plant("rose", 25.0, 10)
+    rose = Plant("rose", 15.0, 10)
 
     print("=== Garden Security System ===")
     print("Plant created: ", end="")
