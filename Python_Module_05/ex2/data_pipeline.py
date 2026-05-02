@@ -188,8 +188,8 @@ class DataStream:
 
 
 def main() -> None:
-    print("=== Code Nexus - Data Pipeline ===")
-    print("Initialize Data Stream...")
+    print("=== Code Nexus - Data Pipeline ===\n")
+    print("Initialize Data Stream...\n")
 
     stream = DataStream()
     stream.print_processors_stats()
@@ -198,7 +198,7 @@ def main() -> None:
     text = TextProcessor()
     log = LogProcessor()
 
-    print("Registering Processors")
+    print("\nRegistering Processors")
     stream.register_processor(numeric)
     stream.register_processor(text)
     stream.register_processor(log)
@@ -220,12 +220,13 @@ def main() -> None:
         ["Hi", "five"],
     ]
 
-    print(f"Send first batch of data on stream: {first_batch}")
+    print(f"\nSend first batch of data on stream: {first_batch}\n")
     stream.process_stream(first_batch)
     stream.print_processors_stats()
 
-    print("Send 3 processed data from each processor to a CSV plugin:")
+    print("\nSend 3 processed data from each processor to a CSV plugin:\n")
     stream.output_pipeline(3, CSVExportPlugin())
+    print("")
     stream.print_processors_stats()
 
     second_batch: list[typing.Any] = [
@@ -245,12 +246,13 @@ def main() -> None:
         "World hello",
     ]
 
-    print(f"Send another batch of data: {second_batch}")
+    print(f"\nSend another batch of data: {second_batch}\n")
     stream.process_stream(second_batch)
     stream.print_processors_stats()
 
-    print("Send 5 processed data from each processor to a JSON plugin:")
+    print("\nSend 5 processed data from each processor to a JSON plugin:\n")
     stream.output_pipeline(5, JSONExportPlugin())
+    print("")
     stream.print_processors_stats()
 
 

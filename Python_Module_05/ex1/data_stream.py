@@ -194,7 +194,7 @@ def main() -> None:
     stream.register_processor(text)
     stream.register_processor(log)
 
-    print("\nSend the same batch again")
+    print("Send the same batch again")
     stream.process_stream(batch)
     stream.print_processors_stats()
 
